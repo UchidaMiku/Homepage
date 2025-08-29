@@ -24,13 +24,14 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   const swiperFill = document.getElementById('SwiperFill');
-  const swiperContainer = document.getElementById('swiperContainer');
+ 
 
   function updateSwiperFill(index) {
     const totalSlides = 4;
     const widthPercentage = 100 / totalSlides;
     const leftPosition = index * widthPercentage;
-    document.getElementById('SwiperFill').style.left = `${leftPosition}%`;
+    SwiperFill.style.left = `${leftPosition}%`;
+
   }
 
   swiper.on('slideChange', () => {
@@ -38,28 +39,10 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   updateSwiperFill(swiper.realIndex);
-  ;
+  
 
   let swiperInView = false;
 
-  const swiperObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      swiperInView = entry.isIntersecting;
-      if (!swiperInView) {
-        swiperFill.style.width = '0%';
-      } else {
-        updateSwiperFill(swiper.realIndex);
-      }
-    });
-  }, { threshold: 0.1 });
-
-  swiperObserver.observe(swiperContainer);
-
-  swiper.on('slideChange', function () {
-    if (swiperInView) {
-      updateSwiperFill(swiper.realIndex);
-    }
-  });
 
   const fadeInSections = document.querySelectorAll('.fade-in-section, .fade-in-address');
   const observer = new IntersectionObserver(entries => {
